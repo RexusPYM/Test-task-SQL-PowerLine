@@ -1,0 +1,26 @@
+CREATE TABLE customers(
+Id int PRIMARY KEY,
+Name varchar(100) NOT NULL
+);
+
+INSERT ALL
+INTO customers (Id, Name) VALUES (1,'Max')
+INTO customers (Id, Name) VALUES (2,'Pavel')
+INTO customers (Id, Name) VALUES (3,'Ivan')
+INTO customers (Id, Name) VALUES (4,'Leonid')
+SELECT * FROM dual
+
+CREATE TABLE orders(
+Id int PRIMARY KEY,
+CustomerId int,
+FOREIGN KEY(CustomerId) REFERENCES customers(Id)
+);
+
+INSERT ALL
+INTO orders (Id, CustomerId) VALUES (1, 2)
+INTO orders (Id, CustomerId) VALUES (2, 4)
+SELECT * FROM dual
+
+SELECT Name FROM customers
+WHERE NOT EXISTS (
+SELECT CustomerId FROM orders WHERE orders.CustomerId = customers.Id)
